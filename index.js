@@ -1,5 +1,6 @@
+const textarea = document.getElementsByTagName('textarea')[0];
+
 const windowResized = () => {
-  const screen = document.getElementsByTagName('textarea')[0];
 
   let widthTest = ''
 
@@ -11,8 +12,35 @@ const windowResized = () => {
     widthTest += '\n|'
   }
 
-  screen.value = widthTest;
+  textarea.value = widthTest;
 }
 
 windowResized();
 window.onresize = windowResized;
+
+const mouse = {};
+
+textarea.onmousemove = e => {
+
+  mouse.x = Math.floor(e.clientX / 9.6)
+  mouse.y = Math.floor(e.clientY / 18)
+  let padding = '';
+  for (let i = 0; i < mouse.y; i++) {
+    padding += '\n'
+  }
+  for (let i = 0; i < mouse.x; i++) {
+    padding += ' '
+  }
+  padding += '█'
+  textarea.value = padding;
+
+}
+
+const drawScreen = () => {
+  // document.getElementsByTagName('textarea')[0].value = Math.random();
+  window.requestAnimationFrame(drawScreen)
+}
+
+window.requestAnimationFrame(drawScreen)
+
+// drawScreen();
