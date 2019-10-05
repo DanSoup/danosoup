@@ -1,22 +1,25 @@
-const textarea = document.getElementsByTagName('textarea')[0];
+const {randomChar} = utils;
+
+const display = document.getElementById('display');
 const cursorTracker = document.getElementById('cursor-tracker');
 
-const windowResized = () => {
-
-  let widthTest = ''
-
-  for (let i = 0; i < Math.floor(screen.offsetWidth / 9.6); i++) {
-    widthTest += '-'
+window.gContent = {
+  text: [],
+  width: Math.floor(window.innerWidth / 9.6),
+  height: Math.floor(window.innerHeight / 18),
+  mouse: {
+    x: 0,
+    y: 0
   }
+};
 
-  for (let i = 1; i < Math.floor(screen.offsetHeight / 18.06); i++) {
-    widthTest += '\n|'
-  }
+const windowResized = (() => {
 
-  textarea.value = widthTest;
-}
+  window.gContent.width = Math.floor(window.innerWidth / 9.6)
+  window.gContent.height = Math.floor(window.innerHeight / 18)
 
-windowResized();
+  })
+
 window.onresize = windowResized;
 
 const mouse = {};
@@ -33,15 +36,32 @@ cursorTracker.onmousemove = e => {
     padding += ' '
   }
   padding += '█'
-  textarea.value = padding;
+  display.value = padding;
 
 }
 
 const drawScreen = () => {
-  // document.getElementsByTagName('textarea')[0].value = Math.random();
+
+  const {gContent} = window;
+
+  gContent.text = [];
+
+  console.log(screen.availHeight)
+
+  for (let i = 0; i < gContent.height; i++) {
+    const row = [];
+    for (let j = 0; j < gContent.width; j++) {
+      row.push(randomChar());
+    }
+    gContent.text.push(row);
+  }
+
+  display.value = gContent.text.reduce((acc, row) => {
+    acc += row.join('');
+    return acc;
+  }, '');
+
   window.requestAnimationFrame(drawScreen)
-}
+};
 
-window.requestAnimationFrame(drawScreen)
-
-// drawScreen();
+window.requestAnimationFrame(drawScreen);
