@@ -1,4 +1,5 @@
 const textarea = document.getElementsByTagName('textarea')[0];
+const cursorTracker = document.getElementById('cursor-tracker');
 
 const windowResized = () => {
 
@@ -20,7 +21,7 @@ window.onresize = windowResized;
 
 const mouse = {};
 
-textarea.onmousemove = e => {
+cursorTracker.onmousemove = e => {
 
   mouse.x = Math.floor(e.clientX / 9.6)
   mouse.y = Math.floor(e.clientY / 18)

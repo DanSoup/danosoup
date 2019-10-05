@@ -22,7 +22,7 @@
     overflow: hidden;
   }
 
-  textarea {
+  #display {
     padding: 0px;
     margin: 0px;
     font-family: 'Courier New', Courier, monospace;
@@ -34,12 +34,20 @@
     width: 100vw;
     height: 100vh;
     overflow: hidden;
-    cursor: crosshair;
+  }
+
+  #cursor-tracker {
+    height: 100vh;
+    width: 100vw;
+    /* background-color: red; */
+    position: fixed;
+    cursor: none;
   }
 
 </style>
 <body>
-  <textarea></textarea>
+  <div id="cursor-tracker"></div>
+  <textarea id="display"></textarea>
 </body>
 <script src="index.js"></script>
 </html>
