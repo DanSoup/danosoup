@@ -1,0 +1,19 @@
+{
+  "name": "danosoup",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm t"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DanSoup/danosoup.git"
+  },
+  "author": "Dan Soup (Daniel Thomas)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DanSoup/danosoup/issues"
+  },
+  "homepage": "https://github.com/DanSoup/danosoup#readme"
+}
