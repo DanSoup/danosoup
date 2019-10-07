@@ -18,50 +18,69 @@ const windowResized = (() => {
   window.gContent.width = Math.floor(window.innerWidth / 9.6)
   window.gContent.height = Math.floor(window.innerHeight / 18)
 
-  })
+})
 
 window.onresize = windowResized;
 
-const mouse = {};
+const mouse = {
+  x: 0,
+  y: 0
+};
 
 cursorTracker.onmousemove = e => {
 
-  mouse.x = Math.floor(e.clientX / 9.6)
-  mouse.y = Math.floor(e.clientY / 18)
-  let padding = '';
-  for (let i = 0; i < mouse.y; i++) {
-    padding += '\n'
-  }
-  for (let i = 0; i < mouse.x; i++) {
-    padding += ' '
-  }
-  padding += '█'
-  display.value = padding;
+  mouse.x = Math.min(Math.floor(e.clientX / 9.6), gContent.width - 1)
+  mouse.y = Math.min(Math.floor(e.clientY / 18), gContent.height - 1)
 
 }
 
-const drawScreen = () => {
+const drawFrame = () => {
 
   const {gContent} = window;
 
   gContent.text = [];
 
-  console.log(screen.availHeight)
-
-  for (let i = 0; i < gContent.height; i++) {
+  for (let y = 0; y < gContent.height; y++) {
     const row = [];
-    for (let j = 0; j < gContent.width; j++) {
-      row.push(randomChar());
+    for (let x = 0; x < gContent.width; x++) {
+      row.push(' ');
     }
     gContent.text.push(row);
   }
 
-  display.value = gContent.text.reduce((acc, row) => {
-    acc += row.join('');
+  const drawDesktop = (() => {
+    for (let x = 0; x < gContent.width; x++) {
+      gContent.text[0][x] = '═';
+      gContent.text[2][x] = '═';
+      gContent.text[gContent.height - 3][x] = '═';
+      gContent.text[gContent.height - 1][x] = '═';
+    };
+    for (let y = 0; y < gContent.height; y++) {
+      gContent.text[y][0] = '║';      
+      gContent.text[y][gContent.width - 1] = '║';      
+    };
+    gContent.text[0][0] = '╔';
+    gContent.text[2][0] = '╠';
+    gContent.text[gContent.height - 3][0] = '╠';
+    gContent.text[gContent.height - 1][0] = '╚';
+
+    gContent.text[0][gContent.width - 1] = '╗';
+    gContent.text[2][gContent.width - 1] = '╣';
+    gContent.text[gContent.height - 3][gContent.width - 1] = '╣';
+    gContent.text[gContent.height - 1][gContent.width - 1] = '╝';
+  })()
+
+  mouse.x = Math.min(mouse.x, gContent.width - 1)
+  mouse.y = Math.min(mouse.y, gContent.height - 1)
+
+  gContent.text[mouse.y][mouse.x] = '█';
+
+  display.value = gContent.text.reduce((acc, row, i) => {
+    acc += (i === 0 ? '' : '\n') + row.join('');
     return acc;
   }, '');
 
-  window.requestAnimationFrame(drawScreen)
+  window.requestAnimationFrame(drawFrame)
 };
 
-window.requestAnimationFrame(drawScreen);
+window.requestAnimationFrame(drawFrame);
