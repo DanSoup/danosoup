@@ -29,6 +29,17 @@ const desktop = () => {
   write([1, 1], ' danOSoup v 0.0.1')
   write([1, gContent.width - 11], 'y' + mouse.y.toString().padStart(3, '0') + ' x' + mouse.x.toString().padStart(3, '0'))
 
+  const now = new Date(Date.now());
+
+  const seconds = now.getSeconds().toString().padStart(2, '0')
+  const minutes = now.getMinutes().toString().padStart(2, '0')
+  const hours = now.getHours().toString().padStart(2, '0')
+  const date = now.getDate().toString().padStart(2, '0')
+  const month = (now.getMonth() + 1).toString().padStart(2, '0')
+  const year = now.getFullYear().toString().padStart(4, '0')
+
+  write([gContent.height - 2, gContent.width - 20], `${hours}:${minutes}:${seconds} ${date}/${month}/${year}`)
+
 };
 
 export default desktop;
