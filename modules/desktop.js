@@ -26,7 +26,8 @@ const desktop = () => {
   gContent.text[gContent.height - 3][gContent.width - 1] = '╣';
   gContent.text[gContent.height - 1][gContent.width - 1] = '╝';
 
-  write([20, 20], 'Hello')
+  write([1, 1], ' danOSoup v 0.0.1')
+  write([1, gContent.width - 11], 'y' + mouse.y.toString().padStart(3, '0') + ' x' + mouse.x.toString().padStart(3, '0'))
 
 };
 

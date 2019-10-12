@@ -25,7 +25,7 @@ const windowResized = (() => {
 
 window.onresize = windowResized;
 
-const mouse = {
+window.mouse = {
   x: 0,
   y: 0
 };
