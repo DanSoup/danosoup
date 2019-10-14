@@ -1,5 +1,6 @@
 import utils from './utils.js';
 import desktop from './modules/desktop.js';
+import welcomeWindow from './modules/welcomeWindow.js';
 
 const {randomChar} = utils;
 
@@ -52,6 +53,7 @@ const drawFrame = () => {
   }
 
   desktop();
+  welcomeWindow();
 
   // const drawDesktop = (() => {
   //   for (let x = 0; x < gContent.width; x++) {
